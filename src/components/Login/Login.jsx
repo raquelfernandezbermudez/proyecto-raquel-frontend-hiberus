@@ -1,69 +1,67 @@
-import React, { Component } from 'react'
-import axios from 'axios';
+import React from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import "./Login.css";
 
-export class Login extends Component {
+const Login = () => {
+  const [userLogin, setUserLogin] = useState({
+    email: "",
+    password: "",
+  });
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: 'Escribe tu email',
-      password: 'Escribe tu contraseña'
-    };
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  const handleChange = (e) => {
+    setUserLogin({
+      ...userLogin,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-  }//Constructor
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://51.38.51.187:5050/api/v1/auth/log-in",
+        {
+          ...userLogin
+        }
+      );
+      localStorage.setItem("accessToken", response.data.accessToken);
+      console.log(response.data.accessToken);
+      setSuccessMessage("Datos correctos");
 
-  // Gestionar los cambios en cualquier elemento del form
-  handleChange(event) {
-    if(event.target.name === 'email') {
-      this.setState({
-        email: event.target.value,
-        password: this.state.password
-      })    
-    } else if(event.target.name === 'password') {
-      this.setState({
-        email: this.state.email,
-        password: event.target.value
-      })    
+      setTimeout(() => {
+        navigate("/users");
+      }, 1000);
+    } catch (error) {
+      console.log(error);
+      setErrorMessage("Credenciales no válidas");
+      setTimeout(() => {
+        window.location.href = "/LogIn";
+      }, 1000);
     }
-  }
- 
-  handleSubmit(event) {
-    axios.post('http://51.38.51.187:5050/api/v1/auth/log-in', {
-        email: this.state.email,
-        password: this.state.password,
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-      event.preventDefault();
-    }
-
-  render() {
-    return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            <p>Email</p>
-            <input type="text" name='email' onChange={this.handleChange}/>
-          </label>
-          <label>
-            <p>Contraseña</p>
-            <input type="password"  name='password' onChange={this.handleChange}/>
-          </label>
-          <div>
-            <button type="submit">Login</button>
-          </div>
-        </form>
-
-      </div>
-    )
-  }
-}
-
-export default Login
+  };
+  return (
+    <div>
+      <h3>Introduce tus datos</h3>
+      <form onSubmit={handleSubmit}>
+        <label>
+          <p>Email</p>
+          <input type="text" name="email" onChange={handleChange} />
+        </label>
+        <label>
+          <p>Contraseña</p>
+          <input type="password" name="password" onChange={handleChange} />
+        </label>
+        <div>
+          <button type="submit">Login</button>
+        </div>
+      </form>
+    </div>
+  );
+};
+export default Login;
