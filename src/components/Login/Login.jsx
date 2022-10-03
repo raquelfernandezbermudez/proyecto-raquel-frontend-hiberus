@@ -31,7 +31,8 @@ const Login = () => {
         }
       );
       localStorage.setItem("accessToken", response.data.accessToken);
-      console.log(response.data.accessToken);
+      localStorage.setItem("email", userLogin.email);
+
       setSuccessMessage("Datos correctos");
 
       setTimeout(() => {
@@ -42,7 +43,7 @@ const Login = () => {
       setErrorMessage("Credenciales no válidas");
       setTimeout(() => {
         window.location.href = "/LogIn";
-      }, 1000);
+      }, 5000);
     }
   };
   return (
@@ -61,6 +62,9 @@ const Login = () => {
           <button type="submit">Login</button>
         </div>
       </form>
+      {
+        errorMessage != null ? <div>{errorMessage}</div> : <div />
+      }
     </div>
   );
 };

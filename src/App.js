@@ -5,8 +5,7 @@ import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import Users from './components/Users/Users';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-
-
+import SeeUser from './components/Users/SeeUser';
 
 function App() {
   return (
@@ -19,6 +18,7 @@ function App() {
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<SignUp />} />
             <Route exact path="/users" element={<Users />} />
+            <Route exact path="/seeuser" element={<SeeUser />} />
           </Routes>
       </BrowserRouter>
 

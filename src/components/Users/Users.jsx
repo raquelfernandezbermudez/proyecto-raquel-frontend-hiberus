@@ -7,6 +7,7 @@ import "./Users.css";
 const Users = () => {
   const [users, setUsers] = useState(null);
   const accessToken = localStorage.getItem("accessToken");
+  const email = localStorage.getItem("email");
 
   useEffect(() => {
     // Pasar el token para la peticion get
@@ -28,10 +29,17 @@ const Users = () => {
     window.location.href = "/"
   }
 
+  const seeuser = (e) => {
+    const button = e.target;
+    const userid = button.id;
+    localStorage.setItem("id", userid);
+    window.location.href = "/seeuser"
+  }
+
   return (
     <div>
 
-      <p> Bienvenid@ </p>
+      <p> Bienvenide {email}</p>
       <button type="submit" onClick={logOut}>Salir</button>
 
       <h3>Listado de usuarios</h3>
@@ -47,8 +55,9 @@ const Users = () => {
                     <td>{user.email}</td>
                     <td>{user.name}</td>
                     <td>{user.surname}</td>
+                    <td>{user.id}</td>
                     <td>
-                      <button type="submit" onClick={logOut}>Ver</button>
+                      <button id={user.id} type="submit" onClick={seeuser}>Ver</button>
                     </td>
                   </tr>
                 );
