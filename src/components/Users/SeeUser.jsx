@@ -5,7 +5,6 @@ import axios from "axios";
 const SeeUser = () => {
 
   const [user, setUser] = useState(null);
-
   const accessToken = localStorage.getItem("accessToken");
   const id = localStorage.getItem("id");
 
@@ -26,6 +25,37 @@ const SeeUser = () => {
       });
   }, [accessToken, id]);
 
+  const deleteUser = (e) =>  {
+    // Pasar el token para la peticion get
+    const config = {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    };
+    // Llamar a la lista de usuarios pasandole el accessToken
+    // y los metemos en variable de estado "users"
+    const url = `http://51.38.51.187:5050/api/v1/users/${id}`
+    console.log(url)
+    axios
+      .delete(url, config)
+      .then((response) => {
+        setUser(response.data);
+      });
+  }
+
+  const modifyUser = (e) =>  {
+    // Pasar el token para la peticion get
+    const config = {
+      headers: { Authorization: `Bearer ${accessToken}` },
+    };
+    // Llamar a la lista de usuarios pasandole el accessToken
+    // y los metemos en variable de estado "users"
+    const url = `http://51.38.51.187:5050/api/v1/users/${id}`
+    console.log(url)
+    axios
+      .put(url, config)
+      .then((response) => {
+        setUser(response.data);
+      });
+  }
   
   return (
     <div>
@@ -40,6 +70,10 @@ const SeeUser = () => {
           :
           <br />
       }
+
+    <button type="text" name="email" onClick={deleteUser}>Eliminar</button>
+    <button type="text" name="email" onClick={modifyUser}>Modificar</button>
+
     </div>
   )
   
