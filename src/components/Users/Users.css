@@ -1,0 +1,46 @@
+.body {
+  font-family: "Poppins", sans-serif;
+  color: white;
+}
+
+table {
+  width: 75%;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin: 20px;
+}
+
+.right {
+  color: white;
+  float: right;
+  display: flex;
+}
+
+h2 {
+  text-align: center;
+  padding: 20px;
+  color: white;
+}
+
+.centrar {
+  text-align: center;
+}
+
+button {
+  margin-top: 50px;
+  width: 100px;
+  margin: 20px;
+  background-color: #ffffff;
+  color: #080710;
+  padding: 10px 0;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.centrarBoton {
+  display: flex;
+  justify-content: center;
+}
