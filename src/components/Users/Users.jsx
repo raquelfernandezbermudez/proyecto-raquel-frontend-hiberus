@@ -7,7 +7,6 @@ const Users = () => {
   const [users, setUsers] = useState(null);
 
   const accessToken = localStorage.getItem("accessToken");
-  const email = localStorage.getItem("email");
 
   useEffect(() => {
     // Pasar el token para la peticion get
