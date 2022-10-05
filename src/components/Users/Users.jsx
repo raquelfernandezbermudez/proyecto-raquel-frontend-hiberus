@@ -25,6 +25,7 @@ const Users = () => {
 
   const logOut = (e) => {
     localStorage.clear();
+    alert("Usuario desconectado");
     window.location.href = "/";
   };
 
@@ -41,11 +42,14 @@ const Users = () => {
     const config = {
       headers: { Authorization: `Bearer ${accessToken}` },
     };
-    const url = `http://51.38.51.187:5050/api/v1/userds/${userid}`;
+    const url = `http://51.38.51.187:5050/api/v1/users/${userid}`;
     axios
       .delete(url, config)
       .then((response) => {
-        alert("Usuario borrado.");
+        alert("Usuario borrado");
+        setTimeout(() => {
+          window.location.href = "/users";
+        }, 1000);
       })
       .catch((error) => {
         alert("No ha sido posible borrar el usuario.");
@@ -55,7 +59,6 @@ const Users = () => {
   return (
     <div className="body">
       <div className="right">
-        <p> Bienvenid@ {email}</p>
         <button type="submit" onClick={logOut}>
           Salir
         </button>
@@ -63,8 +66,7 @@ const Users = () => {
 
       <h2>Listado de usuarios</h2>
 
-      <table>
-        <tbody>
+      <table className="table table-bordered table-dark">
           <tr>
             <th>Email</th>
             <th>Nombre</th>
@@ -91,7 +93,6 @@ const Users = () => {
           ) : (
             <tr />
           )}
-        </tbody>
       </table>
     </div>
   );

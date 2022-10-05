@@ -3,14 +3,6 @@
   color: white;
 }
 
-table {
-  width: 75%;
-  color: white;
-  text-align: center;
-  padding: 10px;
-  margin: 20px;
-}
-
 .right {
   color: white;
   float: right;
@@ -23,6 +15,19 @@ h2 {
   color: white;
 }
 
+table {
+  width: 75%;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin: 20px;
+}
+
+th {
+  background-color: white;
+  color: black;
+  padding: 10px;
+}
 .centrar {
   text-align: center;
 }
